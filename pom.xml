@@ -22,7 +22,8 @@
     </properties>
 
     <modules>
-        <module>shared</module>
+        <module>api-gateway</module>
+        <module>auth-service</module>
     </modules>
 
 </project>
