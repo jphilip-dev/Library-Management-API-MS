@@ -24,7 +24,7 @@ public class AdminUpdateRequestDto {
     private String name;
 
     @NotBlank(message = "{password.blank}")
-    @Size(message = "{password.tooShort}")
+    @Size(min = 6, message = "{password.tooShort}")
     private String password;
 
     @NotNull(message = "{required.notnull}")
