@@ -1,8 +1,8 @@
-package com.jphilips.library.auth.service.user;
+package com.jphilips.library.auth.service.auth;
 
 import com.jphilips.library.auth.config.RoleSeeder;
 import com.jphilips.library.auth.dto.UserResponseDto;
-import com.jphilips.library.auth.dto.cqrs.command.CreateUserCommand;
+import com.jphilips.library.auth.dto.cqrs.command.RegisterUserCommand;
 import com.jphilips.library.auth.dto.mapper.UserMapper;
 import com.jphilips.library.auth.service.helper.UserManager;
 import com.jphilips.shared.util.Command;
@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class CreateUserCommandService implements Command<CreateUserCommand, UserResponseDto> {
+public class RegisterUserCommandService implements Command<RegisterUserCommand, UserResponseDto> {
 
     private final UserMapper userMapper;
     private final RoleSeeder roleSeeder;
@@ -21,7 +21,7 @@ public class CreateUserCommandService implements Command<CreateUserCommand, User
     private final PasswordEncoder passwordEncoder;
 
     @Override
-    public UserResponseDto execute(CreateUserCommand command) {
+    public UserResponseDto execute(RegisterUserCommand command) {
 
         // Extract
         var userRequestDto = command.userRequestDto();
@@ -42,6 +42,5 @@ public class CreateUserCommandService implements Command<CreateUserCommand, User
         var savedUser = userManager.save(newUser);
 
         return userMapper.toDto(savedUser);
-
     }
 }
