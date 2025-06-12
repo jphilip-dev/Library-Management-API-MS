@@ -2,6 +2,7 @@ package com.jphilips.library.auth.service.auth;
 
 import com.jphilips.library.auth.dto.TokenResponseDto;
 import com.jphilips.library.auth.dto.cqrs.command.AuthenticateCommand;
+import com.jphilips.library.auth.exception.custom.UserInactiveException;
 import com.jphilips.library.auth.exception.custom.UserPasswordMismatchException;
 import com.jphilips.library.auth.service.helper.UserManager;
 import com.jphilips.library.auth.util.JwtUtil;
@@ -29,12 +30,20 @@ public class AuthenticateCommandService implements Command<AuthenticateCommand, 
         // Validate email
         var user = userManager.validateUserByEmail(loginRequestDto.email());
 
+        // Validate Password
         if(!passwordEncoder.matches(loginRequestDto.password(), user.getPassword())){
             throw new UserPasswordMismatchException(ErrorCode.AUTH_ERROR_PASSWORD_MISMATCH);
         }
 
+        // Check Account Status
+        if (!user.getIsActive()){
+            throw new UserInactiveException(ErrorCode.AUTH_ERROR_USER_INACTIVE);
+        }
+
+        // Generate Token
         String token = jwtUtil.generateToken(user);
 
+        // Return TokenResponseDto
         return new TokenResponseDto(token);
     }
 }
