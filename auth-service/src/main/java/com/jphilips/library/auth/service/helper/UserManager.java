@@ -33,6 +33,11 @@ public class UserManager {
                 .orElseThrow(() -> new UserNotFoundException(ErrorCode.AUTH_ERROR_USER_NOT_FOUND, id.toString()));
     }
 
+    public User validateUserByEmail(String email){
+        return userRepository.findByEmail(email)
+                .orElseThrow(() -> new UserNotFoundException(ErrorCode.AUTH_ERROR_USER_NOT_FOUND,email));
+    }
+
     public void ownershipCheck(RequestHeaderDetailsDto requestHeaderDetailsDto, String savedUserEmail){
         if (!savedUserEmail.equalsIgnoreCase(requestHeaderDetailsDto.email())){
             throw new OwnershipException(ErrorCode.AUTH_ERROR_OWNERSHIP_MISMATCH);
