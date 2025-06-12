@@ -25,7 +25,7 @@ public abstract class BaseExceptionHandler {
                 .map(fieldError -> new Error(fieldError.getField(), fieldError.getDefaultMessage()))
                 .toList();
 
-        return buildResponseFrom(new AppException(ErrorCode.FIELD_VALUE_ERROR), errors, request);
+        return buildResponseFrom(new AppException(ErrorCode.VALIDATION_FIELD_VALUE_ERROR), errors, request);
 
     }
 
