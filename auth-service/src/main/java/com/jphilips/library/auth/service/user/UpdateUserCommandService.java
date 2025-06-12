@@ -22,7 +22,7 @@ public class UpdateUserCommandService implements Command<UpdateUserCommand, User
     public UserResponseDto execute(UpdateUserCommand command) {
 
         // Extract
-        var requestHeaderDetails = command.requestHeaderDetailsDto();
+        var authDetailsDto = command.authDetailsDto();
         var id = command.id();
         var userRequestDto = command.userRequestDTO();
 
@@ -30,7 +30,7 @@ public class UpdateUserCommandService implements Command<UpdateUserCommand, User
         var savedUser = userManager.validateUserById(id);
 
         // Check ownership
-        userManager.ownershipCheck(requestHeaderDetails, savedUser.getEmail());
+        userManager.ownershipCheck(authDetailsDto, savedUser.getEmail());
 
         // Update fields, email field cannot be updated by user
         savedUser.setName(userRequestDto.getName());
