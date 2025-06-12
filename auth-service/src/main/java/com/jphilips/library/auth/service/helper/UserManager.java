@@ -1,8 +1,11 @@
 package com.jphilips.library.auth.service.helper;
 
 import com.jphilips.library.auth.entity.User;
+import com.jphilips.library.auth.exception.custom.OwnershipException;
+import com.jphilips.library.auth.exception.custom.UserNotFoundException;
 import com.jphilips.library.auth.repository.UserRepository;
 import com.jphilips.shared.dto.RequestHeaderDetailsDto;
+import com.jphilips.shared.exception.errorcode.ErrorCode;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
@@ -27,12 +30,12 @@ public class UserManager {
 
     public User validateUserById(Long id) {
         return userRepository.findById(id)
-                .orElseThrow();
+                .orElseThrow(() -> new UserNotFoundException(ErrorCode.AUTH_ERROR_USER_NOT_FOUND, id.toString()));
     }
 
     public void ownershipCheck(RequestHeaderDetailsDto requestHeaderDetailsDto, String savedUserEmail){
         if (!savedUserEmail.equalsIgnoreCase(requestHeaderDetailsDto.email())){
-            throw new IllegalArgumentException();
+            throw new OwnershipException(ErrorCode.AUTH_ERROR_OWNERSHIP_MISMATCH);
         }
     }
 }

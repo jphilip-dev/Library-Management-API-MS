@@ -17,9 +17,11 @@ public enum ErrorCode {
     VALIDATION_ERROR(HttpStatus.BAD_REQUEST, "ERROR_VALIDATION"),
     CONFLICT(HttpStatus.CONFLICT, "ERROR_CONFLICT"),
 
-    FIELD_VALUE_ERROR(HttpStatus.BAD_REQUEST, "ERROR_FIELD_VALUE");
+    FIELD_VALUE_ERROR(HttpStatus.BAD_REQUEST, "ERROR_FIELD_VALUE"),
 
     // Custom Error codes (Service Specific)
+    AUTH_ERROR_USER_NOT_FOUND(HttpStatus.NOT_FOUND, "ERROR_USER_NOT_FOUND"),
+    AUTH_ERROR_OWNERSHIP_MISMATCH(HttpStatus.FORBIDDEN, "ERROR_OWNERSHIP_MISMATCH");
 
 
     private final HttpStatus status;
