@@ -2,6 +2,7 @@ package com.jphilips.library.auth.config;
 
 import com.jphilips.library.auth.entity.Role;
 import com.jphilips.library.auth.repository.RoleRepository;
+import com.jphilips.shared.enums.EnumRole;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
@@ -12,8 +13,8 @@ public class RoleSeeder {
 
     private final RoleRepository roleRepository;
 
-    private final String USER_ROLE = "USER";
-    private final String ADMIN_ROLE = "ADMIN";
+    private final String USER_ROLE = EnumRole.USER.name();;
+    private final String ADMIN_ROLE = EnumRole.ADMIN.name();
 
     @PostConstruct
     public void seedAdminRole() {
