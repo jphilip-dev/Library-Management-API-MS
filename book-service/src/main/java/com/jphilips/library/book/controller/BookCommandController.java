@@ -10,15 +10,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/books")
+@RequestMapping("/admin/books")
 @RequiredArgsConstructor
 public class BookCommandController {
 
-    private final BookCommandFacadeService bookCommandFacade;
+    private final BookCommandFacadeService bookCommandFacadeService;
 
     @PostMapping
     public ResponseEntity<BookResponseDto> createBook(@Valid @RequestBody BookRequestDto bookRequestDto) {
-        var response = bookCommandFacade.createBook(bookRequestDto);
+        var response = bookCommandFacadeService.createBook(bookRequestDto);
         return ResponseEntity.status(HttpStatus.CREATED).body(response);
     }
 
@@ -26,13 +26,13 @@ public class BookCommandController {
     public ResponseEntity<BookResponseDto> updateBook(
             @PathVariable Long id,
             @Valid @RequestBody BookRequestDto bookRequestDto) {
-        var response = bookCommandFacade.updateBook(id, bookRequestDto);
+        var response = bookCommandFacadeService.updateBook(id, bookRequestDto);
         return ResponseEntity.ok(response);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteBook(@PathVariable Long id) {
-        bookCommandFacade.deleteBook(id);
+        bookCommandFacadeService.deleteBook(id);
         return ResponseEntity.noContent().build(); // HTTP 204
     }
 }
