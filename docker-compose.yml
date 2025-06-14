@@ -1,0 +1,35 @@
+
+services:
+  api-gateway:
+    container_name: library-management-api-gateway
+    build:
+      context: .
+      dockerfile: infra/docker/api-gateway/Dockerfile
+    ports:
+      - "8080:8080"
+    env_file:
+      - infra/docker/api-gateway/.env
+    networks:
+      - internal
+    volumes:
+      - maven-repo:/root/.m2
+
+  auth-service:
+    container_name: library-management-auth-service
+    build:
+      context: .
+      dockerfile: infra/docker/auth-service/Dockerfile
+    env_file:
+      - infra/docker/auth-service/.env
+    networks:
+      - internal
+    volumes:
+      - maven-repo:/root/.m2
+
+
+networks:
+  internal:
+    external: true
+
+volumes:
+  maven-repo:
