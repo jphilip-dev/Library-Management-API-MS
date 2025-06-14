@@ -3,8 +3,10 @@ package com.jphilips.library.book.service.command;
 import com.jphilips.library.book.dto.BookResponseDto;
 import com.jphilips.library.book.dto.cqrs.UpdateBookCommand;
 import com.jphilips.library.book.dto.mapper.BookMapper;
+import com.jphilips.library.book.exception.custom.BookIsbnExistException;
 import com.jphilips.library.book.repository.BookRepository;
 import com.jphilips.library.book.service.helper.BookManager;
+import com.jphilips.shared.exception.errorcode.ErrorCode;
 import com.jphilips.shared.util.Command;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -31,7 +33,7 @@ public class UpdateBookCommandService implements Command<UpdateBookCommand, Book
         // Check if ISBN is updated
         if (!existingBook.getIsbn().equalsIgnoreCase(bookRequestDto.getIsbn())){
             if(bookRepository.findByIsbn(bookRequestDto.getIsbn()).isPresent()){
-                throw new IllegalArgumentException(); // Custom exception later
+                throw new BookIsbnExistException(ErrorCode.BOOK_ERROR_ISBN_EXIST);
             }
         }
 

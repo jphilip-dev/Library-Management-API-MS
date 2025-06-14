@@ -1,5 +1,7 @@
 package com.jphilips.library.book.dto;
 
+import com.jphilips.library.book.validator.UniqueIsbn;
+import com.jphilips.shared.validator.groups.OnCreate;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Positive;
 import jakarta.validation.constraints.Size;
@@ -14,6 +16,7 @@ public class BookRequestDto {
 
     @NotBlank
     @Size(min = 6)
+    @UniqueIsbn(groups = OnCreate.class)
     private String isbn;
 
     @NotBlank
