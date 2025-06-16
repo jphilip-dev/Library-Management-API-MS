@@ -23,9 +23,8 @@
     </properties>
 
     <modules>
-        <module>shared</module>
-        <module>api-gateway</module>
-        <module>auth-service</module>
         <module>book-service</module>
+        <module>shared</module>
     </modules>
+
 </project>

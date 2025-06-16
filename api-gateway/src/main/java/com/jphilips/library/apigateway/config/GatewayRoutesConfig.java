@@ -11,17 +11,19 @@ import org.springframework.context.annotation.Configuration;
 
 
 @Configuration
-@RequiredArgsConstructor
 public class GatewayRoutesConfig {
 
     private final String authServiceUri;
+    private final String bookServiceUri;
     private final RouteBuilder routeBuilder;
 
     @Autowired
     public GatewayRoutesConfig(RouteBuilder routeBuilder,
-                               @Value("${AUTH_SERVICE_URI}") String authServiceUri) {
+                               @Value("${AUTH_SERVICE_URI}") String authServiceUri,
+                               @Value("${BOOK_SERVICE_URI}") String bookServiceUri) {
         this.routeBuilder = routeBuilder;
         this.authServiceUri = authServiceUri;
+        this.bookServiceUri = bookServiceUri;
     }
 
 
@@ -33,10 +35,16 @@ public class GatewayRoutesConfig {
         // Public route (no filter)
         routeBuilder.addPublicRoute(routes,"auth-service-auth-route", "/auth/**",authServiceUri);
 
-        // Secured routes
-        routeBuilder.addAdminRoute(routes, "auth-service-admin-route", "/admin/**", authServiceUri);
+        // ----Secured-routes----
+        // Auth service
+        routeBuilder.addAdminRoute(routes, "auth-service-admin-route", "/admin/auth/users/**", authServiceUri);
         routeBuilder.addUserRoute(routes, "auth-service-user-route", "/users/**", authServiceUri);
+
+        // Book service
+        routeBuilder.addAdminRoute(routes, "book-service-admin-route", "/admin/books/**", bookServiceUri);
+        routeBuilder.addUserRoute(routes, "book-service-user-route", "/books/**", bookServiceUri);
 
         return routes.build();
     }
+
 }
