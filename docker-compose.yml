@@ -38,6 +38,18 @@ services:
     volumes:
       - maven-repo:/root/.m2
 
+  user-profile-service:
+    container_name: library-management-user-profile-service
+    build:
+      context: .
+      dockerfile: infra/docker/user-profile-service/Dockerfile
+    env_file:
+      - infra/docker/user-profile-service/.env
+    networks:
+      - internal
+    volumes:
+      - maven-repo:/root/.m2
+
 
 networks:
   internal:
