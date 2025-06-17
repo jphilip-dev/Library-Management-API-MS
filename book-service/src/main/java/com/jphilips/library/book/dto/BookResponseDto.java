@@ -9,6 +9,8 @@ public record BookResponseDto(
         String title,
         String author,
         String publisher,
-        int yearPublished
+        int yearPublished,
+        String category,
+        String callNumber
 ) {
 }
