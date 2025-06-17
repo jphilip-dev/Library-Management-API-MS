@@ -1,5 +1,6 @@
 package com.jphilips.library.book.entity;
 
+import com.jphilips.library.book.enums.BookCategory;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -34,6 +35,13 @@ public class Book {
 
     @Column(nullable = false)
     private int yearPublished;
+
+    @Column(nullable = false)
+    @Enumerated(EnumType.STRING)
+    private BookCategory category;
+
+    @Column(nullable = false)
+    private String callNumber;
 
     @Column(nullable = false)
     private LocalDateTime createdAt;

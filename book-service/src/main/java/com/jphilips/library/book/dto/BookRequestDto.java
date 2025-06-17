@@ -31,4 +31,7 @@ public class BookRequestDto {
     @Positive
     private int yearPublished;
 
+    @NotBlank
+    private String category;
+
 }
