@@ -3,16 +3,19 @@ package com.jphilips.library.bookinventory.entity;
 import com.jphilips.library.bookinventory.enums.BranchCode;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
 
 @Entity
-@Table(name = "book_inventory")
+@Table(name = "book_inventory",
+        uniqueConstraints = @UniqueConstraint(columnNames = {"bookId", "branchCode"}))
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Builder
 public class BookInventory {
 
     @Id

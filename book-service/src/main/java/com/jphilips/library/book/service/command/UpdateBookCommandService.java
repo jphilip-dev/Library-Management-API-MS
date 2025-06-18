@@ -1,6 +1,6 @@
 package com.jphilips.library.book.service.command;
 
-import com.jphilips.library.book.dto.BookResponseDto;
+import com.jphilips.shared.dto.BookResponseDto;
 import com.jphilips.library.book.dto.cqrs.UpdateBookCommand;
 import com.jphilips.library.book.dto.mapper.BookMapper;
 import com.jphilips.library.book.exception.custom.BookIsbnExistException;
