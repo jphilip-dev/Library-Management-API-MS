@@ -62,6 +62,18 @@ services:
     volumes:
       - maven-repo:/root/.m2
 
+  borrowing-service:
+    container_name: library-management-borrowing-service
+    build:
+      context: .
+      dockerfile: infra/docker/borrowing-service/Dockerfile
+    env_file:
+      - infra/docker/borrowing-service/.env
+    networks:
+      - internal
+    volumes:
+      - maven-repo:/root/.m2
+
 
 networks:
   internal:
