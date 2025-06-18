@@ -1,6 +1,6 @@
 package com.jphilips.library.book.service.query;
 
-import com.jphilips.library.book.dto.BookResponseDto;
+import com.jphilips.shared.dto.BookResponseDto;
 import com.jphilips.shared.dto.PagedResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;

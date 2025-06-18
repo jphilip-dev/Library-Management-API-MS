@@ -1,8 +1,8 @@
 package com.jphilips.library.book.controller;
 
 import com.jphilips.library.book.dto.BookRequestDto;
-import com.jphilips.library.book.dto.BookResponseDto;
 import com.jphilips.library.book.service.command.BookCommandFacadeService;
+import com.jphilips.shared.dto.BookResponseDto;
 import com.jphilips.shared.validator.groups.OnCreate;
 import jakarta.validation.Valid;
 import jakarta.validation.groups.Default;

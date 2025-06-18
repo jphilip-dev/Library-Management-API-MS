@@ -50,6 +50,18 @@ services:
     volumes:
       - maven-repo:/root/.m2
 
+  book-inventory-service:
+    container_name: library-management-book-inventory-service
+    build:
+      context: .
+      dockerfile: infra/docker/book-inventory-service/Dockerfile
+    env_file:
+      - infra/docker/book-inventory-service/.env
+    networks:
+      - internal
+    volumes:
+      - maven-repo:/root/.m2
+
 
 networks:
   internal:

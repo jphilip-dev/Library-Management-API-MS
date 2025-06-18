@@ -1,6 +1,6 @@
 package com.jphilips.library.book.service.query;
 
-import com.jphilips.library.book.dto.BookResponseDto;
+import com.jphilips.shared.dto.BookResponseDto;
 import com.jphilips.library.book.dto.mapper.BookMapper;
 import com.jphilips.library.book.entity.Book;
 import com.jphilips.library.book.repository.BookRepository;
