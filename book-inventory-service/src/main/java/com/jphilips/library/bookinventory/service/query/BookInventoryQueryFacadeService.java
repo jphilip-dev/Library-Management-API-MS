@@ -3,6 +3,7 @@ package com.jphilips.library.bookinventory.service.query;
 
 import com.jphilips.library.bookinventory.dto.BookInventoryResponseDto;
 import com.jphilips.library.bookinventory.dto.BookInventoryResponseWithBookDto;
+import com.jphilips.library.bookinventory.dto.cqrs.GetAllInventoriesQuery;
 import com.jphilips.library.bookinventory.dto.cqrs.GetInventoriesByBookIdQuery;
 import com.jphilips.library.bookinventory.dto.cqrs.GetInventoryByIdQuery;
 import com.jphilips.library.bookinventory.dto.cqrs.GetInventoryByIdWithBookQuery;
@@ -18,6 +19,16 @@ public class BookInventoryQueryFacadeService {
     private final GetInventoryByIdQueryService getInventoryByIdQueryService;
     private final GetInventoriesByBookIdQueryService getInventoriesByBookIdQueryService;
     private final GetInventoryByIdWithBookQueryService getInventoryByIdWithBookQueryService;
+    private final GetAllInventoriesQueryService getAllInventoriesQueryService;
+
+
+    public PagedResponse<BookInventoryResponseDto> getAllInventories(Pageable pageable){
+        var query = GetAllInventoriesQuery.builder()
+                .pageable(pageable)
+                .build();
+
+        return getAllInventoriesQueryService.execute(query);
+    }
 
     public BookInventoryResponseDto getById(Long id) {
         var query = GetInventoryByIdQuery.builder()

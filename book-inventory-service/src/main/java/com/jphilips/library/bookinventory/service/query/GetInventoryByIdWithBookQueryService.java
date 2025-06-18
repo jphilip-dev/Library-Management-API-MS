@@ -11,9 +11,11 @@ import com.jphilips.shared.exception.errorcode.ErrorCode;
 import com.jphilips.shared.util.Query;
 import feign.FeignException;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class GetInventoryByIdWithBookQueryService implements Query<GetInventoryByIdWithBookQuery, BookInventoryResponseWithBookDto> {
@@ -33,9 +35,10 @@ public class GetInventoryByIdWithBookQueryService implements Query<GetInventoryB
 
         // Rest call
         try {
-            bookResponseDto = bookClient.getBookById(id);
+            bookResponseDto = bookClient.getBookById(bookInventory.getBookId());
         } catch (FeignException ex) {
-            throw new BookClientException(ErrorCode.BOOK_INVENTORY_ERROR_BOOK_CLIENT);
+            log.error("Feign Exception:{}", ex.getMessage(), ex);
+            throw new BookClientException(ErrorCode.BOOK_INVENTORY_ERROR_BOOK_NOT_FOUND);
         }
 
         return bookInventoryMapper.toDto(bookInventory, bookResponseDto);

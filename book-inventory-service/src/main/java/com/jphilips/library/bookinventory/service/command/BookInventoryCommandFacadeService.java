@@ -3,6 +3,7 @@ package com.jphilips.library.bookinventory.service.command;
 import com.jphilips.library.bookinventory.dto.BookInventoryResponseDto;
 import com.jphilips.library.bookinventory.dto.cqrs.AddStockCommand;
 import com.jphilips.library.bookinventory.dto.cqrs.BorrowBookCommand;
+import com.jphilips.library.bookinventory.dto.cqrs.DeleteBookInventoryCommand;
 import com.jphilips.library.bookinventory.dto.cqrs.ReturnBookCommand;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -14,6 +15,7 @@ public class BookInventoryCommandFacadeService {
     private final AddStockCommandService addStockCommandService;
     private final BorrowBookCommandService borrowBookCommandService;
     private final ReturnBookCommandService returnBookCommandService;
+    private final DeleteBookInventoryCommandService deleteBookInventoryCommandService;
 
     public BookInventoryResponseDto addStock(Long bookId, String branchCode, int quantityToAdd) {
         var command = AddStockCommand.builder()
@@ -43,5 +45,14 @@ public class BookInventoryCommandFacadeService {
                 .build();
 
         return returnBookCommandService.execute(command);
+    }
+
+    public void deleteBookInventory(Long id) {
+
+        var command = DeleteBookInventoryCommand.builder()
+                .id(id)
+                .build();
+
+        deleteBookInventoryCommandService.execute(command);
     }
 }

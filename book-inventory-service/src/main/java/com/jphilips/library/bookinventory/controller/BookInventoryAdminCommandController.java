@@ -4,15 +4,12 @@ import com.jphilips.library.bookinventory.dto.BookInventoryResponseDto;
 import com.jphilips.library.bookinventory.service.command.BookInventoryCommandFacadeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/admin/inventory")
-public class BookInventoryCommandController {
+public class BookInventoryAdminCommandController {
 
     private final BookInventoryCommandFacadeService bookInventoryCommandFacadeService;
 
@@ -44,5 +41,13 @@ public class BookInventoryCommandController {
     ) {
         var response = bookInventoryCommandFacadeService.returnBook(bookId, branchCode, qtyToReturn);
         return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteBookInventory(@PathVariable Long id){
+
+        bookInventoryCommandFacadeService.deleteBookInventory(id);
+
+        return ResponseEntity.noContent().build();
     }
 }
