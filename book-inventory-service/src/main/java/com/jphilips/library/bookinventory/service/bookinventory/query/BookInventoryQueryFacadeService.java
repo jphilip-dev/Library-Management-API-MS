@@ -1,12 +1,12 @@
-package com.jphilips.library.bookinventory.service.query;
+package com.jphilips.library.bookinventory.service.bookinventory.query;
 
 
 import com.jphilips.library.bookinventory.dto.BookInventoryResponseDto;
 import com.jphilips.library.bookinventory.dto.BookInventoryResponseWithBookDto;
-import com.jphilips.library.bookinventory.dto.cqrs.GetAllInventoriesQuery;
-import com.jphilips.library.bookinventory.dto.cqrs.GetInventoriesByBookIdQuery;
-import com.jphilips.library.bookinventory.dto.cqrs.GetInventoryByIdQuery;
-import com.jphilips.library.bookinventory.dto.cqrs.GetInventoryByIdWithBookQuery;
+import com.jphilips.library.bookinventory.dto.cqrs.bookinventory.GetAllInventoriesQuery;
+import com.jphilips.library.bookinventory.dto.cqrs.bookinventory.GetInventoriesByBookIdQuery;
+import com.jphilips.library.bookinventory.dto.cqrs.bookinventory.GetInventoryByIdQuery;
+import com.jphilips.library.bookinventory.dto.cqrs.bookinventory.GetInventoryByIdWithBookQuery;
 import com.jphilips.shared.dto.PagedResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;

@@ -1,14 +1,15 @@
-package com.jphilips.library.bookinventory.service.command;
+package com.jphilips.library.bookinventory.service.bookinventory.command;
 
 import com.jphilips.library.bookinventory.config.BookClient;
 import com.jphilips.library.bookinventory.dto.BookInventoryResponseDto;
-import com.jphilips.library.bookinventory.dto.cqrs.AddStockCommand;
+import com.jphilips.library.bookinventory.dto.cqrs.bookinventory.AddStockCommand;
 import com.jphilips.library.bookinventory.dto.mapper.BookInventoryMapper;
 import com.jphilips.library.bookinventory.entity.BookInventory;
-import com.jphilips.library.bookinventory.enums.BranchCode;
+import com.jphilips.library.bookinventory.entity.Branch;
 import com.jphilips.library.bookinventory.exception.custom.BookClientException;
 import com.jphilips.library.bookinventory.exception.custom.BookInventoryNotFoundException;
-import com.jphilips.library.bookinventory.service.helper.BookInventoryManager;
+import com.jphilips.library.bookinventory.service.branch.BranchManager;
+import com.jphilips.library.bookinventory.service.bookinventory.BookInventoryManager;
 import com.jphilips.shared.dto.BookResponseDto;
 import com.jphilips.shared.exception.errorcode.ErrorCode;
 import com.jphilips.shared.util.Command;
@@ -25,6 +26,7 @@ import java.time.LocalDateTime;
 public class AddStockCommandService implements Command<AddStockCommand, BookInventoryResponseDto> {
 
     private final BookInventoryMapper bookInventoryMapper;
+    private final BranchManager branchManager;
     private final BookInventoryManager bookInventoryManager;
 
     private final BookClient bookClient;
@@ -38,7 +40,7 @@ public class AddStockCommandService implements Command<AddStockCommand, BookInve
         var quantityToAdd = command.quantityToAdd();
 
         // Validate branch code, can throw an error
-        BranchCode branchCode = bookInventoryManager.validateBranchCode(command.branchCode());
+        Branch branch=branchManager.validateBranch(command.branchCode());
 
         // Rest call to check if book exists
         try {
@@ -51,11 +53,11 @@ public class AddStockCommandService implements Command<AddStockCommand, BookInve
         // Check inventory if exists, else catch error and make new inventory row
         BookInventory inventory;
         try {
-            inventory = bookInventoryManager.validateByBookIdAndBranchCode(bookId,branchCode);
+            inventory = bookInventoryManager.validateByBookIdAndBranchCode(bookId,branch.getCode());
         }catch (BookInventoryNotFoundException ex){
             inventory  = BookInventory.builder()
                     .bookId(bookId)
-                    .branchCode(branchCode)
+                    .branch(branch)
                     .totalQuantity(0)
                     .availableQuantity(0)
                     .borrowed(0)

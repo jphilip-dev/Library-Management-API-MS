@@ -1,7 +1,7 @@
-package com.jphilips.library.bookinventory.service.query;
+package com.jphilips.library.bookinventory.service.bookinventory.query;
 
 import com.jphilips.library.bookinventory.dto.BookInventoryResponseDto;
-import com.jphilips.library.bookinventory.dto.cqrs.GetInventoriesByBookIdQuery;
+import com.jphilips.library.bookinventory.dto.cqrs.bookinventory.GetAllInventoriesQuery;
 import com.jphilips.library.bookinventory.dto.mapper.BookInventoryMapper;
 import com.jphilips.library.bookinventory.entity.BookInventory;
 import com.jphilips.library.bookinventory.repository.BookInventoryRepository;
@@ -15,25 +15,21 @@ import java.util.List;
 
 @Service
 @RequiredArgsConstructor
-public class GetInventoriesByBookIdQueryService
-        implements Query<GetInventoriesByBookIdQuery, PagedResponse<BookInventoryResponseDto>> {
+public class GetAllInventoriesQueryService implements Query<GetAllInventoriesQuery, PagedResponse<BookInventoryResponseDto>> {
 
     private final BookInventoryRepository bookInventoryRepository;
+
     private final BookInventoryMapper bookInventoryMapper;
 
     @Override
-    public PagedResponse<BookInventoryResponseDto> execute(GetInventoriesByBookIdQuery query) {
+    public PagedResponse<BookInventoryResponseDto> execute(GetAllInventoriesQuery query) {
 
-        // Extract payload
-        var bookId = query.bookId();
-        var pageable = query.pageable();
-
-        Page<BookInventory> bookInventoryPage = bookInventoryRepository.findByBookId(bookId, pageable);
+        Page<BookInventory> bookInventoryPage = bookInventoryRepository.findAll(query.pageable());
 
         List<BookInventoryResponseDto> content = bookInventoryPage.getContent().stream()
                 .map(bookInventoryMapper::toDto)
                 .toList();
 
-        return new PagedResponse<>(content, bookInventoryPage);
+        return new PagedResponse<>(content,bookInventoryPage);
     }
 }

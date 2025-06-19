@@ -1,10 +1,11 @@
-package com.jphilips.library.bookinventory.service.command;
+package com.jphilips.library.bookinventory.service.bookinventory.command;
 
 import com.jphilips.library.bookinventory.dto.BookInventoryResponseDto;
-import com.jphilips.library.bookinventory.dto.cqrs.ReturnBookCommand;
+import com.jphilips.library.bookinventory.dto.cqrs.bookinventory.ReturnBookCommand;
 import com.jphilips.library.bookinventory.dto.mapper.BookInventoryMapper;
-import com.jphilips.library.bookinventory.enums.BranchCode;
-import com.jphilips.library.bookinventory.service.helper.BookInventoryManager;
+import com.jphilips.library.bookinventory.entity.Branch;
+import com.jphilips.library.bookinventory.service.branch.BranchManager;
+import com.jphilips.library.bookinventory.service.bookinventory.BookInventoryManager;
 import com.jphilips.shared.exception.custom.AppException;
 import com.jphilips.shared.exception.errorcode.ErrorCode;
 import com.jphilips.shared.util.Command;
@@ -19,6 +20,7 @@ public class ReturnBookCommandService implements Command<ReturnBookCommand, Book
 
     private final BookInventoryMapper bookInventoryMapper;
     private final BookInventoryManager bookInventoryManager;
+    private final BranchManager branchManager;
 
     @Override
     public BookInventoryResponseDto execute(ReturnBookCommand command) {
@@ -28,12 +30,12 @@ public class ReturnBookCommandService implements Command<ReturnBookCommand, Book
         var qtyToReturn = command.qtyToReturn();
 
         // Validate branch code, can throw an error
-        BranchCode branchCode = bookInventoryManager.validateBranchCode(command.branchCode());
+        Branch branch = branchManager.validateBranch(command.branchCode());
 
         // Check inventory if exists, else throw error
-        var inventory = bookInventoryManager.validateByBookIdAndBranchCode(bookId,branchCode);
+        var inventory = bookInventoryManager.validateByBookIdAndBranchCode(bookId, branch.getCode());
 
-        if(inventory.getBorrowed() < qtyToReturn){
+        if (inventory.getBorrowed() < qtyToReturn) {
             throw new AppException(ErrorCode.INTERNAL_SERVER_ERROR);
         }
 

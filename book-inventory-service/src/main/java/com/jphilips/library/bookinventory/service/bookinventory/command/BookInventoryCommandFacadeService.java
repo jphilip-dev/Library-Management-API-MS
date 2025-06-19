@@ -1,10 +1,10 @@
-package com.jphilips.library.bookinventory.service.command;
+package com.jphilips.library.bookinventory.service.bookinventory.command;
 
 import com.jphilips.library.bookinventory.dto.BookInventoryResponseDto;
-import com.jphilips.library.bookinventory.dto.cqrs.AddStockCommand;
-import com.jphilips.library.bookinventory.dto.cqrs.BorrowBookCommand;
-import com.jphilips.library.bookinventory.dto.cqrs.DeleteBookInventoryCommand;
-import com.jphilips.library.bookinventory.dto.cqrs.ReturnBookCommand;
+import com.jphilips.library.bookinventory.dto.cqrs.bookinventory.AddStockCommand;
+import com.jphilips.library.bookinventory.dto.cqrs.bookinventory.BorrowBookCommand;
+import com.jphilips.library.bookinventory.dto.cqrs.bookinventory.DeleteBookInventoryCommand;
+import com.jphilips.library.bookinventory.dto.cqrs.bookinventory.ReturnBookCommand;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

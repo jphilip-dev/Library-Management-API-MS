@@ -1,11 +1,12 @@
-package com.jphilips.library.bookinventory.service.command;
+package com.jphilips.library.bookinventory.service.bookinventory.command;
 
 import com.jphilips.library.bookinventory.dto.BookInventoryResponseDto;
-import com.jphilips.library.bookinventory.dto.cqrs.BorrowBookCommand;
+import com.jphilips.library.bookinventory.dto.cqrs.bookinventory.BorrowBookCommand;
 import com.jphilips.library.bookinventory.dto.mapper.BookInventoryMapper;
-import com.jphilips.library.bookinventory.enums.BranchCode;
+import com.jphilips.library.bookinventory.entity.Branch;
 import com.jphilips.library.bookinventory.exception.custom.NotEnoughStockException;
-import com.jphilips.library.bookinventory.service.helper.BookInventoryManager;
+import com.jphilips.library.bookinventory.service.branch.BranchManager;
+import com.jphilips.library.bookinventory.service.bookinventory.BookInventoryManager;
 import com.jphilips.shared.exception.errorcode.ErrorCode;
 import com.jphilips.shared.util.Command;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,7 @@ import java.time.LocalDateTime;
 public class BorrowBookCommandService implements Command<BorrowBookCommand, BookInventoryResponseDto> {
 
     private final BookInventoryManager bookInventoryManager;
+    private final BranchManager branchManager;
     private final BookInventoryMapper bookInventoryMapper;
 
     @Override
@@ -28,12 +30,12 @@ public class BorrowBookCommandService implements Command<BorrowBookCommand, Book
         var qtyToBorrow = command.qtyToBorrow();
 
         // Validate branch code, can throw an error
-        BranchCode branchCode = bookInventoryManager.validateBranchCode(command.branchCode());
+        Branch branch = branchManager.validateBranch(command.branchCode());
 
         // Check inventory if exists, else throw error
-        var inventory = bookInventoryManager.validateByBookIdAndBranchCode(bookId,branchCode);
+        var inventory = bookInventoryManager.validateByBookIdAndBranchCode(bookId, branch.getCode());
 
-        if(inventory.getAvailableQuantity() < qtyToBorrow){
+        if (inventory.getAvailableQuantity() < qtyToBorrow) {
             throw new NotEnoughStockException(ErrorCode.BOOK_INVENTORY_ERROR_NOT_ENOUGH_STOCK);
         }
 

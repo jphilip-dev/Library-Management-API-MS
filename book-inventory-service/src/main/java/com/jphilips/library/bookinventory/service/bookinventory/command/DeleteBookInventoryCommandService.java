@@ -1,7 +1,7 @@
-package com.jphilips.library.bookinventory.service.command;
+package com.jphilips.library.bookinventory.service.bookinventory.command;
 
-import com.jphilips.library.bookinventory.dto.cqrs.DeleteBookInventoryCommand;
-import com.jphilips.library.bookinventory.service.helper.BookInventoryManager;
+import com.jphilips.library.bookinventory.dto.cqrs.bookinventory.DeleteBookInventoryCommand;
+import com.jphilips.library.bookinventory.service.bookinventory.BookInventoryManager;
 import com.jphilips.shared.util.Command;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

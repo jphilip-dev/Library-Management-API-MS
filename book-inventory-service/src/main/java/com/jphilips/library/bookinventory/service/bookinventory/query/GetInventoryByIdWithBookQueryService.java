@@ -1,11 +1,11 @@
-package com.jphilips.library.bookinventory.service.query;
+package com.jphilips.library.bookinventory.service.bookinventory.query;
 
 import com.jphilips.library.bookinventory.config.BookClient;
 import com.jphilips.library.bookinventory.dto.BookInventoryResponseWithBookDto;
-import com.jphilips.library.bookinventory.dto.cqrs.GetInventoryByIdWithBookQuery;
+import com.jphilips.library.bookinventory.dto.cqrs.bookinventory.GetInventoryByIdWithBookQuery;
 import com.jphilips.library.bookinventory.dto.mapper.BookInventoryMapper;
 import com.jphilips.library.bookinventory.exception.custom.BookClientException;
-import com.jphilips.library.bookinventory.service.helper.BookInventoryManager;
+import com.jphilips.library.bookinventory.service.bookinventory.BookInventoryManager;
 import com.jphilips.shared.dto.BookResponseDto;
 import com.jphilips.shared.exception.errorcode.ErrorCode;
 import com.jphilips.shared.util.Query;

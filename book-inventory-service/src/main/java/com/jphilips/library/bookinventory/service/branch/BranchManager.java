@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class BranchManager {
 
-    private BranchRepository branchRepository;
+    private final BranchRepository branchRepository;
 
     public Branch save(Branch branch){
         return branchRepository.save(branch);
@@ -22,7 +22,7 @@ public class BranchManager {
     }
 
     public Branch validateBranch(String code){
-        return branchRepository.findByCode(code)
+        return branchRepository.findByCode(code.toUpperCase())
                 .orElseThrow(() -> new BranchNotFoundException(ErrorCode.BOOK_INVENTORY_BRANCH_NOT_FOUND, code));
     }
 

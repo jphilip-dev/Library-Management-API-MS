@@ -1,6 +1,5 @@
 package com.jphilips.library.bookinventory.entity;
 
-import com.jphilips.library.bookinventory.enums.BranchCode;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,9 +24,9 @@ public class BookInventory {
     @Column(nullable = false)
     private Long bookId;
 
-    @Column(nullable = false)
-    @Enumerated(EnumType.STRING)
-    private BranchCode branchCode;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "branchCode", referencedColumnName = "code", nullable = false)
+    private Branch branch;
 
     @Column(nullable = false)
     private int totalQuantity;
