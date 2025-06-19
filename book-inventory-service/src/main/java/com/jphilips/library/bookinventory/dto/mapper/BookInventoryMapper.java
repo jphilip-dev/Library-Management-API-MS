@@ -13,7 +13,7 @@ public class BookInventoryMapper {
         return BookInventoryResponseDto.builder()
                 .id(bookInventory.getId())
                 .bookId(bookInventory.getBookId())
-                .branchCode(bookInventory.getBranchCode().name())
+                .branchCode(bookInventory.getBranch().getCode())
                 .totalQuantity(bookInventory.getTotalQuantity())
                 .availableQuantity(bookInventory.getAvailableQuantity())
                 .borrowed(bookInventory.getBorrowed())
@@ -23,7 +23,7 @@ public class BookInventoryMapper {
     public BookInventoryResponseWithBookDto toDto(BookInventory bookInventory, BookResponseDto bookResponseDto){
         return BookInventoryResponseWithBookDto.builder()
                 .id(bookInventory.getId())
-                .branchCode(bookInventory.getBranchCode().name())
+                .branchCode(bookInventory.getBranch().getCode())
                 .totalQuantity(bookInventory.getTotalQuantity())
                 .availableQuantity(bookInventory.getAvailableQuantity())
                 .borrowed(bookInventory.getBorrowed())
