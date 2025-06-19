@@ -52,6 +52,7 @@ public class GatewayRoutesConfig {
 
         // Book inventory service
         routeBuilder.addAdminRoute(routes, "book-inventory-service-admin-route", "/admin/inventory/**", bookInventoryServiceUri);
+        routeBuilder.addAdminRoute(routes, "book-inventory-service-admin-route", "/admin/branch/**", bookInventoryServiceUri);
         routeBuilder.addUserRoute(routes, "book-inventory-service-user-route", "/inventory/**", bookInventoryServiceUri);
 
         // Book inventory service
