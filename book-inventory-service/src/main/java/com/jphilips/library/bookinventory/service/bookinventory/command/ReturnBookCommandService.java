@@ -1,6 +1,6 @@
 package com.jphilips.library.bookinventory.service.bookinventory.command;
 
-import com.jphilips.library.bookinventory.dto.BookInventoryResponseDto;
+import com.jphilips.shared.dto.BookInventoryResponseDto;
 import com.jphilips.library.bookinventory.dto.cqrs.bookinventory.ReturnBookCommand;
 import com.jphilips.library.bookinventory.dto.mapper.BookInventoryMapper;
 import com.jphilips.library.bookinventory.entity.Branch;

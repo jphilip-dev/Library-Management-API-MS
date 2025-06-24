@@ -19,6 +19,6 @@ WORKDIR /app
 
 COPY --from=builder /app/borrowing-service/target/borrowing-service-0.0.1-SNAPSHOT.jar ./app.jar
 
-EXPOSE 8084
+EXPOSE 8085
 
 ENTRYPOINT ["java", "-jar", "app.jar"]

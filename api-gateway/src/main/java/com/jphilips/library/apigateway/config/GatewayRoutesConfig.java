@@ -16,6 +16,7 @@ public class GatewayRoutesConfig {
     private final String bookServiceUri;
     private final String bookInventoryServiceUri;
     private final String userProfileServiceUri;
+    private final String borrowingServiceUri;
 
     private final RouteBuilder routeBuilder;
 
@@ -24,12 +25,14 @@ public class GatewayRoutesConfig {
                                @Value("${AUTH_SERVICE_URI}") String authServiceUri,
                                @Value("${BOOK_SERVICE_URI}") String bookServiceUri,
                                @Value("${BOOK_INVENTORY_SERVICE_URI}") String bookInventoryServiceUri,
-                               @Value("${USER_PROFILE_SERVICE_URI}") String userProfileServiceUri) {
+                               @Value("${USER_PROFILE_SERVICE_URI}") String userProfileServiceUri,
+                               @Value("${BORROWING_SERVICE_URI}") String borrowingServiceUri) {
         this.routeBuilder = routeBuilder;
         this.authServiceUri = authServiceUri;
         this.bookServiceUri = bookServiceUri;
         this.bookInventoryServiceUri = bookInventoryServiceUri;
         this.userProfileServiceUri = userProfileServiceUri;
+        this.borrowingServiceUri = borrowingServiceUri;
     }
 
 
@@ -58,6 +61,10 @@ public class GatewayRoutesConfig {
         // Book inventory service
         routeBuilder.addAdminRoute(routes, "user-profile-service-admin-route", "/admin/user-profile/**", userProfileServiceUri);
         routeBuilder.addUserRoute(routes, "user-profile-service-user-route", "/user-profile/**", userProfileServiceUri);
+
+        routeBuilder.addAdminRoute(routes, "borrow-service-admin-route", "/admin/borrow-records/**", borrowingServiceUri);
+        routeBuilder.addUserRoute(routes, "borrow-service-user-route", "/borrow-records/**", borrowingServiceUri);
+
 
         return routes.build();
     }

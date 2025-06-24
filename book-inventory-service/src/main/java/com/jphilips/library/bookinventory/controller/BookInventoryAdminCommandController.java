@@ -1,6 +1,6 @@
 package com.jphilips.library.bookinventory.controller;
 
-import com.jphilips.library.bookinventory.dto.BookInventoryResponseDto;
+import com.jphilips.shared.dto.BookInventoryResponseDto;
 import com.jphilips.library.bookinventory.service.bookinventory.command.BookInventoryCommandFacadeService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
