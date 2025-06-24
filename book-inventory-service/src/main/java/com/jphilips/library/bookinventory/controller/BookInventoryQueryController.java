@@ -1,16 +1,13 @@
 package com.jphilips.library.bookinventory.controller;
 
-import com.jphilips.library.bookinventory.dto.BookInventoryResponseDto;
+import com.jphilips.shared.dto.BookInventoryResponseDto;
 import com.jphilips.library.bookinventory.dto.BookInventoryResponseWithBookDto;
 import com.jphilips.library.bookinventory.service.bookinventory.query.BookInventoryQueryFacadeService;
 import com.jphilips.shared.dto.PagedResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -18,6 +15,16 @@ import org.springframework.web.bind.annotation.RestController;
 public class BookInventoryQueryController {
 
     private final BookInventoryQueryFacadeService bookInventoryQueryFacadeService;
+
+    @GetMapping("/by-book-and-branch")
+    public ResponseEntity<BookInventoryResponseDto> getByBookIdAndBranch(
+            @RequestParam Long bookId,
+            @RequestParam String branchCode) {
+
+        var response = bookInventoryQueryFacadeService.getByBookIdAndBranch(bookId,branchCode);
+
+        return ResponseEntity.ok(response);
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<BookInventoryResponseDto> getById(@PathVariable Long id) {

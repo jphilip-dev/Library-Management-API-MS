@@ -1,6 +1,6 @@
 package com.jphilips.library.bookinventory.dto.mapper;
 
-import com.jphilips.library.bookinventory.dto.BookInventoryResponseDto;
+import com.jphilips.shared.dto.BookInventoryResponseDto;
 import com.jphilips.library.bookinventory.dto.BookInventoryResponseWithBookDto;
 import com.jphilips.library.bookinventory.entity.BookInventory;
 import com.jphilips.shared.dto.BookResponseDto;

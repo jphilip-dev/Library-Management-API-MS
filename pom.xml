@@ -29,5 +29,6 @@
         <module>book-service</module>
         <module>user-profile-service</module>
         <module>book-inventory-service</module>
+        <module>borrowing-service</module>
     </modules>
 </project>

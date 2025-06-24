@@ -1,4 +1,4 @@
-package com.jphilips.library.bookinventory.dto;
+package com.jphilips.shared.dto;
 
 import lombok.Builder;
 

@@ -1,12 +1,9 @@
 package com.jphilips.library.bookinventory.service.bookinventory.query;
 
 
-import com.jphilips.library.bookinventory.dto.BookInventoryResponseDto;
+import com.jphilips.library.bookinventory.dto.cqrs.bookinventory.*;
+import com.jphilips.shared.dto.BookInventoryResponseDto;
 import com.jphilips.library.bookinventory.dto.BookInventoryResponseWithBookDto;
-import com.jphilips.library.bookinventory.dto.cqrs.bookinventory.GetAllInventoriesQuery;
-import com.jphilips.library.bookinventory.dto.cqrs.bookinventory.GetInventoriesByBookIdQuery;
-import com.jphilips.library.bookinventory.dto.cqrs.bookinventory.GetInventoryByIdQuery;
-import com.jphilips.library.bookinventory.dto.cqrs.bookinventory.GetInventoryByIdWithBookQuery;
 import com.jphilips.shared.dto.PagedResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
@@ -20,6 +17,7 @@ public class BookInventoryQueryFacadeService {
     private final GetInventoriesByBookIdQueryService getInventoriesByBookIdQueryService;
     private final GetInventoryByIdWithBookQueryService getInventoryByIdWithBookQueryService;
     private final GetAllInventoriesQueryService getAllInventoriesQueryService;
+    private final GetInventoryByBookIdAndBranchQueryService getInventoryByBookIdAndBranchQueryService;
 
 
     public PagedResponse<BookInventoryResponseDto> getAllInventories(Pageable pageable){
@@ -53,5 +51,16 @@ public class BookInventoryQueryFacadeService {
                 .build();
 
         return getInventoryByIdWithBookQueryService.execute(query);
+    }
+
+    public BookInventoryResponseDto getByBookIdAndBranch(Long bookId, String branchCode) {
+
+        var query = GetInventoryByBookIdAndBranchQuery.builder()
+                .bookId(bookId)
+                .branchCode(branchCode)
+                .build();
+
+        return getInventoryByBookIdAndBranchQueryService.execute(query);
+
     }
 }
